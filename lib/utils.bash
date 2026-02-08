@@ -35,7 +35,7 @@ list_all_versions() {
 download_release() {
   local version="$1"
   local filename="$2"
-  local url="${ASDF_GIT_ISSUE_DOWNLOAD_URL:-https://github.com/${GH_REPO}/releases/download/v${version}/git-issue-v${version}.tar.gz}"
+  local url="${ASDF_GIT_ISSUE_DOWNLOAD_URL:-https://github.com/${GH_REPO}/releases/download/v${version}/git-native-issue-v${version}.tar.gz}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
