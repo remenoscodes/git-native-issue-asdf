@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# List all available versions from GitHub releases
+# Output format: space-separated list of versions
+
+GH_REPO="remenoscodes/git-issue"
+
+# Use GitHub API to fetch releases
+releases_url="https://api.github.com/repos/${GH_REPO}/releases"
+
+# Fetch releases and extract version tags
+# Filter out pre-releases and strip 'v' prefix
+curl -s "${releases_url}" | \
+  grep '"tag_name":' | \
+  sed -E 's/.*"v([^"]+)".*/\1/' | \
+  tr '\n' ' '
