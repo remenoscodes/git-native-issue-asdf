@@ -1,0 +1,91 @@
+name: Test Plugin
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-plugin:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    
+    steps:
+      - name: Checkout plugin
+        uses: actions/checkout@v4
+      
+      - name: Install asdf
+        run: |
+          git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+          echo '. "$HOME/.asdf/asdf.sh"' >> ~/.bashrc
+      
+      - name: Install dependencies (Ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl git jq
+      
+      - name: Test plugin installation
+        shell: bash
+        run: |
+          source ~/.asdf/asdf.sh
+          
+          # Add plugin from local directory
+          asdf plugin add git-native-issue "$GITHUB_WORKSPACE"
+          
+          echo "✓ Plugin added successfully"
+      
+      - name: Test version listing
+        shell: bash
+        run: |
+          source ~/.asdf/asdf.sh
+          
+          # List versions (should fetch from GitHub releases)
+          VERSIONS=$(asdf list-all git-native-issue)
+          echo "Available versions: $VERSIONS"
+          
+          # Check that 1.0.1 is listed
+          echo "$VERSIONS" | grep -q "1.0.1" || exit 1
+          
+          echo "✓ Version listing works"
+      
+      - name: Test installation
+        shell: bash
+        run: |
+          source ~/.asdf/asdf.sh
+          
+          # Install latest version
+          asdf install git-native-issue 1.0.1
+          asdf global git-native-issue 1.0.1
+          
+          # Verify installation
+          git-issue version || exit 1
+          git-issue version | grep -q "1.0.1" || exit 1
+          
+          echo "✓ Installation works"
+      
+      - name: Test basic functionality
+        shell: bash
+        run: |
+          source ~/.asdf/asdf.sh
+          
+          # Create test repo
+          mkdir -p /tmp/test-repo
+          cd /tmp/test-repo
+          git init
+          git config user.name "Test"
+          git config user.email "test@example.com"
+          git remote add origin https://example.com/test.git
+          
+          # Test commands
+          git-issue init || exit 1
+          git-issue create "Test issue" || exit 1
+          git-issue ls || exit 1
+          
+          echo "✓ Basic commands work"
