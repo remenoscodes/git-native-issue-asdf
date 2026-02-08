@@ -1,6 +1,6 @@
-# git-issue-asdf
+# git-native-issue-asdf
 
-[git-issue](https://github.com/remenoscodes/git-issue) plugin for the [asdf version manager](https://asdf-vm.com).
+[git-native-issue](https://github.com/remenoscodes/git-native-issue) plugin for the [asdf version manager](https://asdf-vm.com).
 
 Distributed issue tracking system built on Git.
 
@@ -9,39 +9,39 @@ Distributed issue tracking system built on Git.
 ### Plugin
 
 ```bash
-asdf plugin add git-issue https://github.com/remenoscodes/git-issue-asdf.git
+asdf plugin add git-native-issue https://github.com/remenoscodes/git-native-issue-asdf.git
 ```
 
-### git-issue
+### git-native-issue
 
 ```bash
 # Show all installable versions
-asdf list-all git-issue
+asdf list-all git-native-issue
 
 # Install specific version
-asdf install git-issue 1.0.1
+asdf install git-native-issue 1.0.1
 
 # Set a version globally
-asdf global git-issue 1.0.1
+asdf global git-native-issue 1.0.1
 
 # Set a version for current directory
-asdf local git-issue 1.0.1
+asdf local git-native-issue 1.0.1
 
-# Now git-issue commands are available
-git-issue version
+# Now git-native-issue commands are available
+git-native-issue version
 ```
 
 ## Dependencies
 
 - `bash`, `curl`, `tar`: generic POSIX utilities
-- `git`: required by git-issue itself
-- `jq`: required by git-issue for JSON processing
+- `git`: required by git-native-issue itself
+- `jq`: required by git-native-issue for JSON processing
 
 ## Configuration
 
 Set `ASDF_GIT_ISSUE_DOWNLOAD_URL` to override the default download URL template.
 
-Default: `https://github.com/remenoscodes/git-issue/releases/download/v{version}/git-issue-v{version}.tar.gz`
+Default: `https://github.com/remenoscodes/git-native-issue/releases/download/v{version}/git-native-issue-v{version}.tar.gz`
 
 ## Development
 
@@ -49,8 +49,8 @@ Default: `https://github.com/remenoscodes/git-issue/releases/download/v{version}
 
 ```bash
 # Test installation locally
-asdf plugin test git-issue https://github.com/remenoscodes/git-issue-asdf.git \
-  "git-issue version"
+asdf plugin test git-native-issue https://github.com/remenoscodes/git-native-issue-asdf.git \
+  "git-native-issue version"
 ```
 
 ### Plugin Structure
@@ -64,9 +64,9 @@ bin/
 
 ## License
 
-GPL-2.0 - Same as git-issue
+GPL-2.0 - Same as git-native-issue
 
 ## Contributing
 
 Contributions welcome! Please open an issue or PR at:
-https://github.com/remenoscodes/git-issue-asdf
+https://github.com/remenoscodes/git-native-issue-asdf

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-GH_REPO="remenoscodes/git-issue"
+GH_REPO="remenoscodes/git-native-issue"
 TOOL_NAME="git-issue"
 TOOL_TEST="git-issue version"
 
